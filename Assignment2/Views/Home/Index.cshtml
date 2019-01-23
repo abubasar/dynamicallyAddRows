@@ -1,0 +1,85 @@
+﻿@model Assignment2.Models.EmployeeViewModel
+
+
+@{
+    ViewBag.Title = "Home Page";
+    int i = ViewBag.i;
+
+}
+
+<h1 class="glyphicon-arrow-down">Employee Entry Form</h1>
+<form action="/Home/Post" method="post">
+
+
+    <table class="table table-bordered table-striped table-hover table-responsive" id="tblEmployee">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>DOB</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @Html.Partial("_AddNewRow", Model)
+        </tbody>
+    </table>
+    <input type="button" class="btnAddRow" value="Add A Row">
+    <input type="button" class="btnSave" value="SaveAll">
+</form>
+<script>
+
+    $('.btnSave').unbind('click').bind('click', saveEmployee)
+    function saveEmployee() {
+        var $button = $(this);
+        var $form = $button.parents('form:first');
+        var $url = $form.attr('action');
+        var $method = $form.attr('method');
+        var data = $form.serialize();
+        console.log(data);
+        var option = {
+            dataType: 'json',
+            type: $method,
+            url: $url,
+            data: data
+        };
+        $.ajax(option).done(function(respons) {
+
+        });
+    }
+
+    function deleteRow(thisButtonObj) {
+        var $button = $(thisButtonObj);
+        var $tr = $button.closest('tr');
+        $tr.remove();
+    }
+
+    $('.deleteRow').unbind('click').bind('click', function () {
+        var $button = $(this);
+        var $tr = $button.closest('tr');
+        $tr.remove();
+    });
+    
+    @*$('.btnAddRow').unbind('click').bind('click', function () {
+        var $button = $(this);
+        $('#tblEmployee').append('<tr><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Name)'</td><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Email)'</td><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Phone)'</td><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Address)'<td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].DOB)'</td><td>'<input type="button" value="X" class="deleteRow" />'</td></tr>');
+
+    });*@
+    
+
+    
+    $('.btnAddRow').unbind('click').bind('click', function () {
+        $.ajax({
+            url: '/Home/AddNewRow',
+            dataType:"html",
+            type:"GET",
+        }).done(function (response) {
+            $('#tblEmployee').append(response);
+            });
+    });
+    
+
+</script>

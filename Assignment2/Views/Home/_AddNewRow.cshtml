@@ -1,0 +1,27 @@
+﻿@model Assignment2.Models.EmployeeViewModel
+
+@foreach (var key in Model.Employees.Keys)
+{
+    <tr>
+        <td>
+            @Html.TextBoxFor(x => Model.Employees[key].Name)
+        </td>
+        <td>
+            @Html.TextBoxFor(x => Model.Employees[key].Email)
+        </td>
+        <td>
+            @Html.TextBoxFor(x => Model.Employees[key].Phone)
+        </td>
+        <td>
+            @Html.TextBoxFor(x => Model.Employees[key].Address)
+        </td>
+        <td>
+            @Html.TextBoxFor(x => Model.Employees[key].DOB)
+        </td>
+        <td>
+            <input type="button" value="X" class="deleteRow" onclick="deleteRow(this)"/>
+        </td>
+    </tr>
+}
+
+
