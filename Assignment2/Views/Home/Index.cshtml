@@ -3,12 +3,13 @@
 
 @{
     ViewBag.Title = "Home Page";
+    Html.EnableClientValidation(true);
     int i = ViewBag.i;
 
 }
 
 <h1 class="glyphicon-arrow-down">Employee Entry Form</h1>
-<form action="/Home/Post" method="post">
+<form action="/Home/Post" method="post" id="employee_form">
 
 
     <table class="table table-bordered table-striped table-hover table-responsive" id="tblEmployee">
@@ -30,25 +31,39 @@
     <input type="button" class="btnAddRow" value="Add A Row">
     <input type="button" class="btnSave" value="SaveAll">
 </form>
-<script>
+
+@section scripts{
+
+    <script>
 
     $('.btnSave').unbind('click').bind('click', saveEmployee)
     function saveEmployee() {
         var $button = $(this);
         var $form = $button.parents('form:first');
-        var $url = $form.attr('action');
-        var $method = $form.attr('method');
-        var data = $form.serialize();
-        console.log(data);
-        var option = {
-            dataType: 'json',
-            type: $method,
-            url: $url,
-            data: data
-        };
-        $.ajax(option).done(function(respons) {
+        if (jQuery.validator && jQuery.validator.unobtrusive) {
+            $form.validate();
+            if (!$form.valid()) {
+                return null;
+            } else {
+                var $url = $form.attr('action');
+                var $method = $form.attr('method');
+                var data = $form.serialize();
+                console.log(data);
+                var option = {
+                    dataType: 'json',
+                    type: $method,
+                    url: $url,
+                    data: data
+                };
+                $.ajax(option).done(function (respons) {
 
-        });
+                });
+            }
+
+        }
+
+
+
     }
 
     function deleteRow(thisButtonObj) {
@@ -62,15 +77,15 @@
         var $tr = $button.closest('tr');
         $tr.remove();
     });
-    
+
     @*$('.btnAddRow').unbind('click').bind('click', function () {
         var $button = $(this);
         $('#tblEmployee').append('<tr><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Name)'</td><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Email)'</td><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Phone)'</td><td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].Address)'<td>'@Html.TextBoxFor(x => Model.Employees[Convert.ToString(i)].DOB)'</td><td>'<input type="button" value="X" class="deleteRow" />'</td></tr>');
 
     });*@
-    
 
-    
+
+
     $('.btnAddRow').unbind('click').bind('click', function () {
         $.ajax({
             url: '/Home/AddNewRow',
@@ -80,6 +95,11 @@
             $('#tblEmployee').append(response);
             });
     });
-    
 
-</script>
+
+
+    </script>
+
+
+
+}

@@ -5,18 +5,23 @@
     <tr>
         <td>
             @Html.TextBoxFor(x => Model.Employees[key].Name)
+           
         </td>
         <td>
             @Html.TextBoxFor(x => Model.Employees[key].Email)
+            @Html.ValidationMessageFor(x => Model.Employees[key].Email,"", new { @class="error" })
         </td>
         <td>
             @Html.TextBoxFor(x => Model.Employees[key].Phone)
+            @Html.ValidationMessageFor(x => Model.Employees[key].Phone, "", new { @class = "error" })
         </td>
         <td>
             @Html.TextBoxFor(x => Model.Employees[key].Address)
+            @Html.ValidationMessageFor(x => Model.Employees[key].Address, "", new { @class = "error" })
         </td>
         <td>
             @Html.TextBoxFor(x => Model.Employees[key].DOB)
+            @Html.ValidationMessageFor(x => Model.Employees[key].DOB, "", new { @class = "error" })
         </td>
         <td>
             <input type="button" value="X" class="deleteRow" onclick="deleteRow(this)"/>

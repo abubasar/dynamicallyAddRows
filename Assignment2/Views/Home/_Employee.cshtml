@@ -4,19 +4,19 @@
 {
     <tr>
         <td>
-            @Html.TextBoxFor(x => Model.Employees[key].Name)
+            @Html.TextBoxFor(x => Model.Employees[key].Name, new { @required = "required" })
         </td>
         <td>
-            @Html.TextBoxFor(x => Model.Employees[key].Email)
+            @Html.TextBoxFor(x => Model.Employees[key].Email, new { @required = "required" })
         </td>
         <td>
-            @Html.TextBoxFor(x => Model.Employees[key].Phone)
+            @Html.TextBoxFor(x => Model.Employees[key].Phone, new { @required = "required" })
         </td>
         <td>
-            @Html.TextBoxFor(x => Model.Employees[key].Address)
+            @Html.TextBoxFor(x => Model.Employees[key].Address, new { @required = "required" })
         </td>
         <td>
-            @Html.TextBoxFor(x => Model.Employees[key].DOB)
+            @Html.TextBoxFor(x => Model.Employees[key].DOB, new { @required = "required" })
         </td>
         <td>
             <input type="button" value="X" class="deleteRow" />

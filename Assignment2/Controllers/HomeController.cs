@@ -24,6 +24,10 @@ namespace Assignment2.Controllers
         }
         public ActionResult Post(EmployeeViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                //
+            }
 
             List<Employee> employees = model.Employees.Select(x => x.Value).ToList();
             return View();
@@ -55,15 +59,7 @@ namespace Assignment2.Controllers
         }
 
 
-        public ActionResult Save(Employee employee)
-        {
-            Employee emp = new Employee(employee.Name, employee.Email, employee.Phone, employee.Address, employee.DOB);
-
-           
-
-            return View();
-        }
-
+        
 
     }
 }
